@@ -20,6 +20,8 @@ public class ObjectSpawner : MonoBehaviour
     List<GameObject> spawnObjects = new List<GameObject>();
     bool isSpawning = false;
 
+    public bool canDraw = false;
+
 
     private void Start()
     {
@@ -156,6 +158,7 @@ public class ObjectSpawner : MonoBehaviour
     {
         validSpawnPositions.Clear();
         BoundsInt boundsInt = tilesMap.cellBounds;
+        //Debug.LogWarning(boundsInt.ToString());
         TileBase[] allTiles = tilesMap.GetTilesBlock(boundsInt);
         Vector3 start = tilesMap.CellToWorld(new Vector3Int(boundsInt.xMin, boundsInt.yMin, 0));
 
@@ -167,12 +170,38 @@ public class ObjectSpawner : MonoBehaviour
                 if (tile != null)
                 {
                     Vector3 place = start + new Vector3(x + 0.5f, y + 2f, 0);
+                    //Debug.Log(start + new Vector3(x, y, 0));
+                    //Debug.Log("===============");
                     validSpawnPositions.Add(place);
+                }
+                else
+                {
+                    //Debug.Log("found nothing");
                 }
             }
         }
 
     }
 
+
+
+    private void OnDrawGizmos()
+    {
+        if (this.tilesMap == null) return;
+        if (!this.canDraw) return;
+        BoundsInt bounds = this.tilesMap.cellBounds;
+
+        for (int x = bounds.xMin; x < bounds.xMax; x++)
+        {
+            for (int y = bounds.yMin; y < bounds.yMax; y++)
+            {
+                Vector3Int vector3Int = new Vector3Int(x, y, 0);
+                Vector3 worldPos = tilesMap.CellToWorld(vector3Int);
+
+                Gizmos.DrawWireCube(worldPos + tilesMap.cellSize / 2, tilesMap.cellSize);
+
+            }
+        }
+    }
 
 }

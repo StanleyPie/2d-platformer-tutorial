@@ -13,6 +13,8 @@ public class EnemyAI : MonoBehaviour
     bool shouldJump;
     bool isGrounded;
 
+    public int damage = 1;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
