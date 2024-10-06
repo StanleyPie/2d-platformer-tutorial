@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,11 +12,14 @@ public class PlayerHealth : MonoBehaviour
 
     SpriteRenderer spriteRenderer;
 
+    public static event Action OnPlayerDied;
+
     private void Start()
     {
-        currentHealth = maxHealth;
-        healthUI.SetMaxHearts(maxHealth);
+        this.ResetHealth();
+
         spriteRenderer = GetComponent<SpriteRenderer>();
+        GameCtrl.OnReset += this.ResetHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -36,7 +40,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-
+            OnPlayerDied.Invoke();
         }
     }
 
@@ -45,5 +49,11 @@ public class PlayerHealth : MonoBehaviour
         spriteRenderer.color = Color.red;
         yield return new WaitForSeconds(0.2f);
         spriteRenderer.color = Color.white;
+    }
+
+    void ResetHealth()
+    {
+        currentHealth = maxHealth;
+        healthUI.SetMaxHearts(maxHealth);
     }
 }

@@ -28,6 +28,7 @@ public class ObjectSpawner : MonoBehaviour
         this.GatherValidPositions();
 
         StartCoroutine(SpawnObjectsIfNeeded());
+        GameCtrl.OnReset += this.LevelChange;
 
     }
 
