@@ -20,6 +20,9 @@ public class EnemyAI : MonoBehaviour
     SpriteRenderer sprite;
     Color ogColor;
 
+    [Header("Loot")]
+    public List<LootItem> lootTable = new List<LootItem>();
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -91,6 +94,23 @@ public class EnemyAI : MonoBehaviour
 
     void Die()
     {
+        foreach (LootItem lootItem in this.lootTable)
+        {
+            if (Random.Range(0f, 100f) <= lootItem.dropChance)
+            {
+                this.InstantiateLoot(lootItem.itemPrefab);
+            }
+
+            break;
+        }
+
         Destroy(gameObject);
+    }
+
+    void InstantiateLoot(GameObject loot)
+    {
+        GameObject droppedLoot = Instantiate(loot, transform.position, Quaternion.identity);
+
+        droppedLoot.GetComponent<SpriteRenderer>().color = Color.red;
     }
 }
