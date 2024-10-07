@@ -15,10 +15,18 @@ public class EnemyAI : MonoBehaviour
 
     public int damage = 1;
 
+    public int maxHealth = 3;
+    int currentHealth;
+    SpriteRenderer sprite;
+    Color ogColor;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         player = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        sprite = GetComponent<SpriteRenderer>();
+        currentHealth = maxHealth;
+        ogColor = sprite.color; 
     }
 
     private void Update()
@@ -61,5 +69,28 @@ public class EnemyAI : MonoBehaviour
 
             rb.AddForce(new Vector2(jumpDirection.x, jumpForce), ForceMode2D.Impulse);
         }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            Die();
+        }
+    }
+
+    IEnumerator FlashWhite()
+    {
+        sprite.color = Color.white;
+
+        yield return new WaitForSeconds(0.2f);
+
+        sprite.color = ogColor;
+    }
+
+    void Die()
+    {
+        Destroy(gameObject);
     }
 }
