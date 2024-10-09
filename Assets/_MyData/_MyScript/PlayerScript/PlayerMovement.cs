@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     bool isFacingRIght = true;
     public Animator animator;
     public ParticleSystem smokeFX;
+    public BoxCollider2D playerCollider;
 
     [Header("Movement")]
     public float moveSpeed= 5f;
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector2 groundCheckSize = new Vector2(0.5f, 0.05f);
     public LayerMask groundLayer;
     public bool isGrounded;
+    bool isOnPlatform;
 
     [Header("Wall Check")]
     public Transform wallCheckPos;
@@ -98,6 +100,37 @@ public class PlayerMovement : MonoBehaviour
     public void Move(InputAction.CallbackContext context)
     {
         horizontalMovement = context.ReadValue<Vector2>().x;
+    }
+
+    public void Drop(InputAction.CallbackContext context)
+    {
+        if(context.performed && isGrounded && isOnPlatform && playerCollider.enabled)
+        {
+            StartCoroutine(this.DisablePlayerCollider(0.25f));
+        }
+    }
+
+    IEnumerator DisablePlayerCollider(float disableTime)
+    {
+        playerCollider.enabled = false;
+        yield return new WaitForSeconds(disableTime);
+        playerCollider.enabled = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isOnPlatform = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Platform"))
+        {
+            isOnPlatform = false;
+        }
     }
 
     public void Dash(InputAction.CallbackContext context)
