@@ -16,9 +16,9 @@ public class ObjectSpawner : MonoBehaviour
     public float gemLifeTime = 10f;
     public float spawnInterval = 0.5f;
 
-    List<Vector3> validSpawnPositions = new List<Vector3>();
-    List<GameObject> spawnObjects = new List<GameObject>();
-    bool isSpawning = false;
+    public List<Vector3> validSpawnPositions = new List<Vector3>();
+    public List<GameObject> spawnObjects = new List<GameObject>();
+    public bool isSpawning = false;
 
     public bool canDraw = false;
 
@@ -61,12 +61,14 @@ public class ObjectSpawner : MonoBehaviour
     IEnumerator SpawnObjectsIfNeeded()
     {
         isSpawning = true;
+        
         while(ActiveObjectCount() < maxObjects)
         {
             SpawnObject();
             yield return new WaitForSeconds(spawnInterval);
         }
-        isSpawning &= false;
+
+        isSpawning = false;
     }
 
     private bool PosHasObject(Vector3 positionCheck)
@@ -159,7 +161,6 @@ public class ObjectSpawner : MonoBehaviour
     {
         validSpawnPositions.Clear();
         BoundsInt boundsInt = tilesMap.cellBounds;
-        //Debug.LogWarning(boundsInt.ToString());
         TileBase[] allTiles = tilesMap.GetTilesBlock(boundsInt);
         Vector3 start = tilesMap.CellToWorld(new Vector3Int(boundsInt.xMin, boundsInt.yMin, 0));
 
@@ -171,13 +172,7 @@ public class ObjectSpawner : MonoBehaviour
                 if (tile != null)
                 {
                     Vector3 place = start + new Vector3(x + 0.5f, y + 2f, 0);
-                    //Debug.Log(start + new Vector3(x, y, 0));
-                    //Debug.Log("===============");
                     validSpawnPositions.Add(place);
-                }
-                else
-                {
-                    //Debug.Log("found nothing");
                 }
             }
         }
