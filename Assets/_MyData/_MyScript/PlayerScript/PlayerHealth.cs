@@ -25,13 +25,38 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        EnemyAI enemy = collision.GetComponent<EnemyAI>();
+        //Debug.Log("09");
+
+        EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
         if (enemy)
         {
             TakeDamage(enemy.damage);
         }
+
+        Trap trap = collision.gameObject.GetComponent<Trap>();
+        if (trap && trap.damage > 0)
+        {
+            TakeDamage(trap.damage);
+        }
     }
 
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    Debug.Log("09");
+    //    EnemyAI enemy = collision.gameObject.GetComponent<EnemyAI>();
+    //    if (enemy)
+    //    {
+    //        Debug.LogWarning(collision.ToString());
+    //        TakeDamage(enemy.damage);
+    //    }
+
+    //    Trap trap = collision.gameObject.GetComponent<Trap>();
+    //    if (trap && trap.damage > 0)
+    //    {
+    //        Debug.LogWarning(collision.ToString());
+    //        TakeDamage(trap.damage);
+    //    }
+    //}
     public void Heal(int amount)
     {
         this.currentHealth += amount;

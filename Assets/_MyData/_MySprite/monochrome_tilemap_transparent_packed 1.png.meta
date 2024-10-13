@@ -1871,7 +1871,7 @@ TextureImporter:
         serializedVersion: 2
         x: 64
         y: 240
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -1882,48 +1882,6 @@ TextureImporter:
       bones: []
       spriteID: 2ae7b3e400f895e4fa4aa3d35e43aba7
       internalID: 1910139868
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monochrome_tilemap_transparent_packed_84
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 240
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 8e03ed58d1140b944ba842a0fabc4990
-      internalID: -843606386
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monochrome_tilemap_transparent_packed_85
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 240
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 12ac74c58a482e048b4bb07666124c23
-      internalID: 1397888067
       vertices: []
       indices: 
       edges: []
@@ -2291,7 +2249,7 @@ TextureImporter:
         serializedVersion: 2
         x: 64
         y: 224
-        width: 16
+        width: 48
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -2302,48 +2260,6 @@ TextureImporter:
       bones: []
       spriteID: d69b154816bae06419f611694dbe2332
       internalID: 961131089
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monochrome_tilemap_transparent_packed_104
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 224
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 232a3ea46e619f648bd489618414811f
-      internalID: -360143428
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: monochrome_tilemap_transparent_packed_105
-      rect:
-        serializedVersion: 2
-        x: 96
-        y: 224
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d5c876afcd9cfe849afdf8ac816f270c
-      internalID: 629966832
       vertices: []
       indices: 
       edges: []

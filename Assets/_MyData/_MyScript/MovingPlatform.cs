@@ -29,7 +29,8 @@ public class MovingPlatform : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.transform.parent = this.transform;
+            if (!transform.gameObject.activeInHierarchy) return;
+            collision.transform.parent = transform;
         }
     }
 
@@ -39,7 +40,8 @@ public class MovingPlatform : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player") && transform.gameObject.activeSelf)
         {
-            collision.gameObject.transform.parent = null;
+            if (!transform.gameObject.activeInHierarchy) return;
+            collision.transform.parent = null;
         }
     }
 }
