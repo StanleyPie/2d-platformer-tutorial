@@ -34,6 +34,7 @@ public class GameCtrl : MonoBehaviour
     public void ResetGame()
     {
         this.gameOverScreen.SetActive(false);
+        MusicManager.PlayBackgroundMusic(false);
         this.survivedLevelCount = 0;
         this.LoadLevel(0, false);
         OnReset.Invoke();
@@ -43,6 +44,7 @@ public class GameCtrl : MonoBehaviour
     void GameOverScreen()
     {
         this.gameOverScreen.SetActive(true);
+        MusicManager.PauseBGMusic();
         this.survivedText.text = "YOU SURVIVED " + survivedLevelCount + " lEVEL";
         if (survivedLevelCount != 1) survivedText.text += "S";
         Time.timeScale = 0;
