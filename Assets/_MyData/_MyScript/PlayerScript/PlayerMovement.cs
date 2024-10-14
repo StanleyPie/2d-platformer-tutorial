@@ -10,11 +10,14 @@ public class PlayerMovement : MonoBehaviour
     bool isFacingRIght = true;
     public Animator animator;
     public ParticleSystem smokeFX;
+    public ParticleSystem speedFX;
     public BoxCollider2D playerCollider;
 
     [Header("Movement")]
-    public float moveSpeed= 5f;
+    public float moveSpeed = 5f;
     float horizontalMovement;
+    float speedMultiplier = 1f;
+
     [Range(-1, 1)] public float heightvalue;
 
     [Header("Dashing")]
@@ -62,7 +65,24 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         trailRenderer = GetComponent<TrailRenderer>();
+        playerCollider = GetComponent<BoxCollider2D>();
+        SpeedItem.onSpeedCollected += SpeedBoost;
     }
+
+    void SpeedBoost(float mutiplier)
+    {
+        StartCoroutine(this.SpeedBoostCoroutine(mutiplier));
+    }
+
+    IEnumerator SpeedBoostCoroutine(float mutiplier)
+    {
+        speedMultiplier = mutiplier;
+        speedFX.Play();
+        yield return new WaitForSeconds(2f);
+        speedMultiplier = 1f;
+        speedFX.Stop();
+    }
+
     private void Update()
     {
         animator.SetFloat("yVelocity", rb.velocity.y);
@@ -77,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isWallJumping)
         {
-            rb.velocity = new Vector2(horizontalMovement * moveSpeed, rb.velocity.y);
+            rb.velocity = new Vector2(horizontalMovement * moveSpeed * speedMultiplier, rb.velocity.y);
             Flip();
         }
     }
@@ -222,6 +242,7 @@ public class PlayerMovement : MonoBehaviour
             Vector3 ls = transform.localScale;
             ls.x *= -1f;
             transform.localScale = ls;
+            speedFX.transform.localScale = ls;
 
             if (rb.velocity.y == 0f)
             {
