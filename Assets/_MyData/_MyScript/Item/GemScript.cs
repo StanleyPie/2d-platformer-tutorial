@@ -11,6 +11,7 @@ public class GemScript : MonoBehaviour, IItems
     public void Collected()
     {
         onGemCollect.Invoke(worth);
+        SoundEffectManager.Play("Gem");
         Destroy(transform.gameObject);
     }
 
